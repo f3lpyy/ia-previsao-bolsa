@@ -39,3 +39,19 @@ entrada = X[-1].reshape((1, janela, len(features)))
 previsao = model.predict(entrada)[0][0]
 print("Previsão próxima hora:", "Alta" if previsao > 0.5 else "Baixa")
 ```
+
+from log_performance import registrar_log
+
+# Depois de model.evaluate()
+loss, acc = model.evaluate(X_test, y_test)
+
+entrada = X[-1].reshape((1, janela, len(features)))
+previsao = model.predict(entrada)[0][0]
+resultado = "Alta" if previsao > 0.5 else "Baixa"
+preco_atual = df['Close'].iloc[-1]
+
+print(f"Acurácia: {acc * 100:.2f}%")
+print("Previsão próxima hora:", resultado)
+
+# Registrar no log
+registrar_log(ticker, acc, resultado, preco_atual)
