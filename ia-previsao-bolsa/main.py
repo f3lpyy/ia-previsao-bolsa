@@ -4,7 +4,17 @@ from indicadores import adicionar_indicadores
 from preprocessamento import preparar_dados
 from modelo import criar_modelo
 from sklearn.model_selection import train_test_split
+from integracao_mt5 import conectar_mt5, obter_dados_mt5, enviar_ordem
 
+# Conectar ao MetaTrader
+conectar_mt5()
+
+# Pegar os últimos 60 minutos e transformar em candle de 1h
+df_min = obter_dados_mt5("PETR4", mt5.TIMEFRAME_M1, 60)
+df = df_min.resample('1H').agg({'open':'first', 'high':'max', 'low':'min', 'close':'last', 'tick_volume':'sum'}).dropna()
+df.rename(columns={'close': 'Close'}, inplace=True)
+
+# ... segue o pipeline (adicionar_indicadores, preparar_dados etc.)
 # Parâmetros
 ticker = "PETR4.SA"
 features = ['Close', 'rsi', 'sma5', 'sma10', 'macd', 'macd_signal']
