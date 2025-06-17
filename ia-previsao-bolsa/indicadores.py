@@ -1,4 +1,3 @@
-```python
 import ta
 import pandas as pd
 
@@ -10,4 +9,3 @@ def adicionar_indicadores(df: pd.DataFrame) -> pd.DataFrame:
     df['macd'] = macd.macd()
     df['macd_signal'] = macd.macd_signal()
     return df.dropna()
-```
