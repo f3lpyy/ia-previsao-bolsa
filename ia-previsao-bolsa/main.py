@@ -1,4 +1,3 @@
-```python
 from coleta_dados import baixar_dados
 from indicadores import adicionar_indicadores
 from preprocessamento import preparar_dados
